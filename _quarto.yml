@@ -4,8 +4,10 @@ project:
 
 website:
   title: "intRos"
+  site-url: https://exeter-data-analytics.github.io/intRos/
+  repo-url: https://github.com/exeter-data-analytics/intRos
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
       - href: posts.qmd

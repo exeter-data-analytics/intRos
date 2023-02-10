@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>intRos</title>
+<link>https://exeter-data-analytics.github.io/intRos/posts.html</link>
+<atom:link href="https://exeter-data-analytics.github.io/intRos/posts.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.2.269</generator>
+<lastBuildDate>Sun, 01 Oct 2023 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>intRos: Reproducible tables with flextable</title>
+  <dc:creator>Daniel Padfield</dc:creator>
+  <link>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="outline" class="level1">
+<h1>Outline</h1>
+<p>As scientists we make A LOT of tables, be it of summary statistics, model parameter values, contrast tables, or anything else. It used to be common practice to copy these individually into Excel or Word and then create a table to insert into your work, but this is prone to errors. No one is perfect after all.</p>
+<p>This problem has now been solved by a bunch of different packages that allow for tables to be created in R and exported to a variety of formats. This means that fewer mistakes are made, that tables can easily be remade if the data or stats change, and that the process of making your tables is completely reproducible. The R package we will introduce to do this today is <strong>flextable</strong>, but there are other options available we won’t cover here such as <strong>gt</strong>.</p>
+<p><strong>flextable</strong> provides an easy and flexible way to create tables for reporting and presentations. It allows for customization of the table appearance, including cell borders, font styles, background color, and more. The package also supports different formats such as HTML, Microsoft Word, and PowerPoint. It is well suited for creating reports and presentations with a high level of formatting, while still being simple and straightforward to use. Additionally, <strong>flextable</strong> has a number of features that make it particularly useful for data visualisation, including the ability to merge cells, add custom functions for data formatting, and control the appearance of the table based on data values (i.e.&nbsp;making p values that are &lt;0.05 <strong>bold</strong>).</p>
+</section>
+<section id="prerequisites" class="level1">
+<h1>Prerequisites</h1>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This introduction should allow you to:</strong></p>
+<ul>
+<li>Add here.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="load-in-required-packages" class="level1">
+<h1>Load in required packages</h1>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.</p>
+<ul>
+<li>Add here.</li>
+</ul>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>flextable</category>
+  <category>R</category>
+  <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</guid>
+  <pubDate>Sun, 01 Oct 2023 23:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

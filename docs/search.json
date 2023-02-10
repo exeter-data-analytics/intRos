@@ -2,15 +2,50 @@
   {
     "objectID": "posts/intro_to_flextable/index.html",
     "href": "posts/intro_to_flextable/index.html",
-    "title": "intRos",
+    "title": "intRos: Reproducible tables with flextable",
     "section": "",
-    "text": "Outline\nThis is where we discuss the need and rationale for this walkthrough.\n\n\nPrerequisites\n\n\nLearning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nThis introduction should allow you to:\n\nAdd here.\n\n\n\n\n\nAdd lecture here\n\nAdditional Resources\n\n\nAcknowledgements\nWe did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.\n\nAdd here."
+    "text": "Outline\nAs scientists we make A LOT of tables, be it of summary statistics, model parameter values, contrast tables, or anything else. It used to be common practice to copy these individually into Excel or Word and then create a table to insert into your work, but this is prone to errors. No one is perfect after all.\nThis problem has now been solved by a bunch of different packages that allow for tables to be created in R and exported to a variety of formats. This means that fewer mistakes are made, that tables can easily be remade if the data or stats change, and that the process of making your tables is completely reproducible. The R package we will introduce to do this today is flextable, but there are other options available we won’t cover here such as gt.\nflextable provides an easy and flexible way to create tables for reporting and presentations. It allows for customization of the table appearance, including cell borders, font styles, background color, and more. The package also supports different formats such as HTML, Microsoft Word, and PowerPoint. It is well suited for creating reports and presentations with a high level of formatting, while still being simple and straightforward to use. Additionally, flextable has a number of features that make it particularly useful for data visualisation, including the ability to merge cells, add custom functions for data formatting, and control the appearance of the table based on data values (i.e. making p values that are <0.05 bold).\n\n\nPrerequisites\n\n\nLearning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nThis introduction should allow you to:\n\nAdd here.\n\n\n\n\n\nLoad in required packages\n\nAdditional Resources\n\n\nAcknowledgements\nWe did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.\n\nAdd here."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Exeter Data Analytics intRos series",
+    "section": "",
+    "text": "Welcome to the Exeter Data Analytics Hub intRos series."
+  },
+  {
+    "objectID": "index.html#what-is-the-exeter-data-analytics-hub",
+    "href": "index.html#what-is-the-exeter-data-analytics-hub",
+    "title": "Exeter Data Analytics intRos series",
+    "section": "What is the Exeter Data Analytics Hub?",
+    "text": "What is the Exeter Data Analytics Hub?\nWe are an inter-college team of volunteers at the University of Exeter aiming to enhance ECR training in open and reproducible science."
+  },
+  {
+    "objectID": "index.html#what-is-the-intros-series",
+    "href": "index.html#what-is-the-intros-series",
+    "title": "Exeter Data Analytics intRos series",
+    "section": "What is the intRos series?",
+    "text": "What is the intRos series?\nThe intRos series is designed to be a place to provide brief introductions and walkthroughs for activities that are common when programming for research purposes. For example, using ggplot2 and making publication-ready plots. Or making reproducible tables in R using flextable. These intRos are aimed to be brief and designed to get you started using these tools. Throughout we highlight where we find information and our favourite resources for when we get stuck!\nWe hope that this series will be added to through time by other members of the University."
+  },
+  {
+    "objectID": "index.html#get-started",
+    "href": "index.html#get-started",
+    "title": "Exeter Data Analytics intRos series",
+    "section": "Get started",
+    "text": "Get started\nAll of the available intRos can be found in the walkthroughs tab. A summary of available walkthroughs is below:\n\nReproducible tables with flextable"
+  },
+  {
+    "objectID": "index.html#contact-us",
+    "href": "index.html#contact-us",
+    "title": "Exeter Data Analytics intRos series",
+    "section": "Contact us",
+    "text": "Contact us\nIf you want to help contribute to this project or have any questions about any of our content, please do not hesitate to contact us."
   },
   {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "Walkthroughs",
     "section": "",
-    "text": "Outline\n\n\n\n\n\n\n\n\n\n\n\n\n\n0 min\n\n\n\n\n\n\nNo matching items"
+    "text": "intRos: Reproducible tables with flextable\n\n\n\n\n\nMake reproducible tables of summary stats and contrasts tables with flextable in R\n\n\n\n\n\n\n2023-10-02\n\n\n1 min\n\n\n\n\n\n\nNo matching items"
   }
 ]

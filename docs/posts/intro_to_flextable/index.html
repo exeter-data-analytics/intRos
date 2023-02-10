@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Daniel Padfield">
+<meta name="dcterms.date" content="2023-10-02">
+<meta name="description" content="Make reproducible tables of summary stats and contrasts tables with flextable in R">
 
-<title>intRos -</title>
+<title>intRos - intRos: Reproducible tables with flextable</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
@@ -94,7 +97,51 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">intRos: Reproducible tables with flextable</h1>
+                  <div>
+        <div class="description">
+          Make reproducible tables of summary stats and contrasts tables with flextable in R
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">flextable</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      Daniel Padfield 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              University of Exeter
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 2, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -105,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#outline" id="toc-outline" class="nav-link active" data-scroll-target="#outline">Outline</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#add-lecture-here" id="toc-add-lecture-here" class="nav-link" data-scroll-target="#add-lecture-here">Add lecture here</a>
+  <li><a href="#load-in-required-packages" id="toc-load-in-required-packages" class="nav-link" data-scroll-target="#load-in-required-packages">Load in required packages</a>
   <ul class="collapse">
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
@@ -114,13 +161,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
 
 
 
 <section id="outline" class="level1">
 <h1>Outline</h1>
-<p>This is where we discuss the need and rationale for this walkthrough.</p>
+<p>As scientists we make A LOT of tables, be it of summary statistics, model parameter values, contrast tables, or anything else. It used to be common practice to copy these individually into Excel or Word and then create a table to insert into your work, but this is prone to errors. No one is perfect after all.</p>
+<p>This problem has now been solved by a bunch of different packages that allow for tables to be created in R and exported to a variety of formats. This means that fewer mistakes are made, that tables can easily be remade if the data or stats change, and that the process of making your tables is completely reproducible. The R package we will introduce to do this today is <strong>flextable</strong>, but there are other options available we won’t cover here such as <strong>gt</strong>.</p>
+<p><strong>flextable</strong> provides an easy and flexible way to create tables for reporting and presentations. It allows for customization of the table appearance, including cell borders, font styles, background color, and more. The package also supports different formats such as HTML, Microsoft Word, and PowerPoint. It is well suited for creating reports and presentations with a high level of formatting, while still being simple and straightforward to use. Additionally, <strong>flextable</strong> has a number of features that make it particularly useful for data visualisation, including the ability to merge cells, add custom functions for data formatting, and control the appearance of the table based on data values (i.e.&nbsp;making p values that are &lt;0.05 <strong>bold</strong>).</p>
 </section>
 <section id="prerequisites" class="level1">
 <h1>Prerequisites</h1>
@@ -144,8 +194,8 @@ Learning objectives
 </div>
 </div>
 </section>
-<section id="add-lecture-here" class="level1">
-<h1>Add lecture here</h1>
+<section id="load-in-required-packages" class="level1">
+<h1>Load in required packages</h1>
 <section id="additional-resources" class="level3">
 <h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
 </section>

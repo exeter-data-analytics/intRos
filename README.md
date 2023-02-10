@@ -1,8 +1,10 @@
-# intRos
+# Exeter Data Analytics hub: intRos series
 
 ## Outline
 
-**intRos** is a repository written by researchers at the University of Exeter that provides walkthroughs to common things we find useful and key to doing our research in R.
+The **intRos** series is designed to be a place to provide brief introductions and walkthroughs for activities that are common when programming for research purposes. For example, using **ggplot2** and making publication-ready plots. Or making reproducible tables in R using **flextable**. These intRos are aimed to be brief and designed to get you started using these tools. Throughout we highlight where we find information and our favourite resources for when we get stuck!
+
+We hope that this series will be added to through time by other members of the University.
 
 ## Links for using quarto
 
