@@ -7,7 +7,7 @@ listing:
   type: default
   categories: true
   feed: true
-  fields: [image, title, description, date, reading-time]
+  fields: [title, description, date, reading-time]
   date-format: "YYYY-MM-DD"
   page-size: 9
 ---
