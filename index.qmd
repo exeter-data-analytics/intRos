@@ -1,11 +1,9 @@
 ---
-title: "intRos"
+title: "Welcome to Exeter Data Analytics intRos series"
+comments: false
+image: images/UOE-green.png
+about:
+  template: jolla
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+## Write introduction here
