@@ -3,7 +3,7 @@ title: "Exeter Data Analytics intRos series"
 comments: false
 image: images/UOE-green.png
 about:
-  template: jolla
+  template: solana
 ---
 
 Welcome to the Exeter Data Analytics Hub intRos series.
