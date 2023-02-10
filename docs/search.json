@@ -4,7 +4,28 @@
     "href": "posts/intro_to_flextable/index.html",
     "title": "intRos: Reproducible tables with flextable",
     "section": "",
-    "text": "Outline\nAs scientists we make A LOT of tables, be it of summary statistics, model parameter values, contrast tables, or anything else. It used to be common practice to copy these individually into Excel or Word and then create a table to insert into your work, but this is prone to errors. No one is perfect after all.\nThis problem has now been solved by a bunch of different packages that allow for tables to be created in R and exported to a variety of formats. This means that fewer mistakes are made, that tables can easily be remade if the data or stats change, and that the process of making your tables is completely reproducible. The R package we will introduce to do this today is flextable, but there are other options available we won’t cover here such as gt.\nflextable provides an easy and flexible way to create tables for reporting and presentations. It allows for customization of the table appearance, including cell borders, font styles, background color, and more. The package also supports different formats such as HTML, Microsoft Word, and PowerPoint. It is well suited for creating reports and presentations with a high level of formatting, while still being simple and straightforward to use. Additionally, flextable has a number of features that make it particularly useful for data visualisation, including the ability to merge cells, add custom functions for data formatting, and control the appearance of the table based on data values (i.e. making p values that are <0.05 bold).\n\n\nPrerequisites\n\n\nLearning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nThis introduction should allow you to:\n\nAdd here.\n\n\n\n\n\nLoad in required packages\n\nAdditional Resources\n\n\nAcknowledgements\nWe did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.\n\nAdd here."
+    "text": "As scientists we make A LOT of tables, be it of summary statistics, model parameter values, contrast tables, or anything else. It used to be common practice to copy these individually into Excel or Word and then create a table to insert into your work, but this is prone to errors. No one is perfect after all.\nThis problem has now been solved by a bunch of different packages that allow for tables to be created in R and exported to a variety of formats. This means that fewer mistakes are made, that tables can easily be remade if the data or stats change, and that the process of making your tables is completely reproducible. The R package we will introduce to do this today is flextable, but there are other options available we won’t cover here such as gt.\nflextable provides an easy and flexible way to create tables for reporting and presentations. It allows for customization of the table appearance, including cell borders, font styles, background color, and more. The package also supports different formats such as HTML, Microsoft Word, and PowerPoint. It is well suited for creating reports and presentations with a high level of formatting, while still being simple and straightforward to use. Additionally, flextable has a number of features that make it particularly useful for data visualisation, including the ability to merge cells, add custom functions for data formatting, and control the appearance of the table based on data values (i.e. making p values that are <0.05 bold)."
+  },
+  {
+    "objectID": "posts/intro_to_flextable/index.html#make-table-of-summary-stats",
+    "href": "posts/intro_to_flextable/index.html#make-table-of-summary-stats",
+    "title": "intRos: Reproducible tables with flextable",
+    "section": "Make table of summary stats",
+    "text": "Make table of summary stats"
+  },
+  {
+    "objectID": "posts/intro_to_flextable/index.html#make-table-of-model-parameters",
+    "href": "posts/intro_to_flextable/index.html#make-table-of-model-parameters",
+    "title": "intRos: Reproducible tables with flextable",
+    "section": "Make table of model parameters",
+    "text": "Make table of model parameters"
+  },
+  {
+    "objectID": "posts/intro_to_flextable/index.html#make-table-of-contrasts",
+    "href": "posts/intro_to_flextable/index.html#make-table-of-contrasts",
+    "title": "intRos: Reproducible tables with flextable",
+    "section": "Make table of contrasts",
+    "text": "Make table of contrasts\n\nAdditional Resources\n\n\nAcknowledgements\nWe did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.\n\nAdd here."
   },
   {
     "objectID": "index.html",
@@ -47,12 +68,5 @@
     "title": "Walkthroughs",
     "section": "",
     "text": "intRos: Reproducible tables with flextable\n\n\n\n\n\nMake reproducible tables of summary stats and contrasts tables with flextable in R\n\n\n\n\n\n\n2023-10-02\n\n\n1 min\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "contributing_tips.html",
-    "href": "contributing_tips.html",
-    "title": "intRos",
-    "section": "",
-    "text": "This is a set of rules to follow for contributing to this repository.\n\nrun git pull. The easiest way to to do this is using the Pull button from the RStudio Git pane.\nwhen creating a new post, create a new folder for the post inside the posts directory. Then copy the post template into that folder using Terminal cp _post_template.qmd posts/new_folder_name/indez.qmd. Then edit that new file to create the new walkthrough\nre render the website using the Render Website button from the RStudio Build pane. Alternatively you can use the Terminal and run quarto render.\nre render individual files using Terminal quarto render path/to/single/file\ncommit and push changes. The easiest way to do this is in the RStudio Git pane using the commit and Push buttons."
   }
 ]

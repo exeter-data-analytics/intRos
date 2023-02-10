@@ -29,8 +29,17 @@ This problem has now been solved by a bunch of different packages that allow for
 -   Add here.
 :::
 
-# Load in required packages
+# Using flextable
 
+### Load in required packages
+
+## Make table of summary stats
+
+## Make table of model parameters
+
+## Make table of contrasts
+
+# Summary
 
 ### Additional Resources
 

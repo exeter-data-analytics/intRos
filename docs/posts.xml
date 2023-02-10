@@ -48,8 +48,19 @@ Learning objectives
 </div>
 </div>
 </section>
-<section id="load-in-required-packages" class="level1">
-<h1>Load in required packages</h1>
+<section id="using-flextable" class="level1">
+<h1>Using flextable</h1>
+<section id="load-in-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="load-in-required-packages">Load in required packages</h3>
+</section>
+<section id="make-table-of-summary-stats" class="level2">
+<h2 class="anchored" data-anchor-id="make-table-of-summary-stats">Make table of summary stats</h2>
+</section>
+<section id="make-table-of-model-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="make-table-of-model-parameters">Make table of model parameters</h2>
+</section>
+<section id="make-table-of-contrasts" class="level2">
+<h2 class="anchored" data-anchor-id="make-table-of-contrasts">Make table of contrasts</h2>
 <section id="additional-resources" class="level3">
 <h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
 </section>
@@ -61,6 +72,7 @@ Learning objectives
 </ul>
 
 
+</section>
 </section>
 </section>
 

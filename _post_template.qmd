@@ -27,6 +27,7 @@ This is where we discuss the need and rationale for this walkthrough.
 
 # Add lecture here
 
+# Summary
 
 ### Additional Resources
 
