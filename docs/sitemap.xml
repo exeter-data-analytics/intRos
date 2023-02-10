@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</loc>
-    <lastmod>2023-02-10T15:07:08.404Z</lastmod>
+    <lastmod>2023-02-10T15:17:22.135Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/index.html</loc>
-    <lastmod>2023-02-10T15:07:08.907Z</lastmod>
+    <lastmod>2023-02-10T15:17:22.617Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts.html</loc>
-    <lastmod>2023-02-10T15:07:09.599Z</lastmod>
+    <lastmod>2023-02-10T15:17:23.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://exeter-data-analytics.github.io/intRos/contributing_tips.html</loc>
+    <lastmod>2023-02-10T15:17:24.413Z</lastmod>
   </url>
 </urlset>

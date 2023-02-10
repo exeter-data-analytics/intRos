@@ -47,5 +47,12 @@
     "title": "Walkthroughs",
     "section": "",
     "text": "intRos: Reproducible tables with flextable\n\n\n\n\n\nMake reproducible tables of summary stats and contrasts tables with flextable in R\n\n\n\n\n\n\n2023-10-02\n\n\n1 min\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "contributing_tips.html",
+    "href": "contributing_tips.html",
+    "title": "intRos",
+    "section": "",
+    "text": "This is a set of rules to follow for contributing to this repository.\n\nrun git pull. The easiest way to to do this is using the Pull button from the RStudio Git pane.\nwhen creating a new post, create a new folder for the post inside the posts directory. Then copy the post template into that folder using Terminal cp _post_template.qmd posts/new_folder_name/indez.qmd. Then edit that new file to create the new walkthrough\nre render the website using the Render Website button from the RStudio Build pane. Alternatively you can use the Terminal and run quarto render.\nre render individual files using Terminal quarto render path/to/single/file\ncommit and push changes. The easiest way to do this is in the RStudio Git pane using the commit and Push buttons."
   }
 ]
