@@ -20,7 +20,9 @@ We hope that this series will be added to through time by other members of the U
 
 ## Get started
 
-All of the available intRos can be found in the **walkthroughs** tab. A summary of available walkthroughs is below:
+All of the available intRos can be found in the **walkthroughs** tab. All of the reproducible quarto (.qmd) files can be found at the source [GitHub](https://github.com/exeter-data-analytics/intRos) repository for this website. You can navigate to each of the directories individually in the `posts/` folder, or better still clone the repo using `git clone` and open the project in RStudio. 
+
+A summary of available walkthroughs is below:
 
 - Reproducible tables with **flextable**
 

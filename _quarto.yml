@@ -12,6 +12,8 @@ website:
         text: Home
       - href: posts.qmd
         text: Walkthroughs
+      - icon: github
+        href: https://github.com/exeter-data-analytics/intRos
 format:
   html:
     theme: minty
