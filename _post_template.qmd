@@ -4,9 +4,9 @@ author:
   - name:
     affiliation: University of Exeter
 description: ""
-date: ""
+date: "MM/DD/YYYY"
+date-modified: last-modified
 categories: [add here]
-image: ""
 ---
 
 # Outline
