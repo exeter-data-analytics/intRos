@@ -7,6 +7,9 @@ description: ""
 date: "MM/DD/YYYY"
 date-modified: last-modified
 categories: [add here]
+execute:
+  message: false
+  warning: false
 ---
 
 # Outline
