@@ -4,6 +4,7 @@ project:
 
 website:
   title: "intRos"
+  google-analytics: G-7BMXZGJQQY
   site-url: https://exeter-data-analytics.github.io/intRos/
   repo-url: https://github.com/exeter-data-analytics/intRos
   navbar:
