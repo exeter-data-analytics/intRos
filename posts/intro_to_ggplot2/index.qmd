@@ -4,7 +4,7 @@ author:
   - name: Daniel Padfield
     affiliation: University of Exeter
 description: "Make publication ready plots in R using ggplot2 and learn some new tips and tricks"
-date: "MM/DD/YYYY"
+date: "02/24/2023"
 date-modified: last-modified
 categories: [R, ggplot2, tidyverse]
 execute:

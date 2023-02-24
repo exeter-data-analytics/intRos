@@ -10,7 +10,7 @@
 <atom:link href="https://exeter-data-analytics.github.io/intRos/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.2.269</generator>
-<lastBuildDate>Invalid Date</lastBuildDate>
+<lastBuildDate>Fri, 24 Feb 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>intRos: Publication ready plots using ggplot2</title>
   <dc:creator>Daniel Padfield</dc:creator>
@@ -340,7 +340,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
   <category>ggplot2</category>
   <category>tidyverse</category>
   <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</guid>
-  <pubDate>Invalid Date</pubDate>
+  <pubDate>Fri, 24 Feb 2023 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>intRos: Reproducible tables with flextable</title>
