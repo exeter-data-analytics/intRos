@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#our-favourite-tips-and-tricks-when-making-plots" id="toc-our-favourite-tips-and-tricks-when-making-plots" class="nav-link" data-scroll-target="#our-favourite-tips-and-tricks-when-making-plots">Our favourite tips and tricks when making plots</a>
   <ul class="collapse">
   <li><a href="#convert-text-size-in-geom_label-or-geom_text-to-pts-used-for-labels" id="toc-convert-text-size-in-geom_label-or-geom_text-to-pts-used-for-labels" class="nav-link" data-scroll-target="#convert-text-size-in-geom_label-or-geom_text-to-pts-used-for-labels">Convert text size in geom_label() or geom_text() to pts used for labels</a></li>
-  <li><a href="#soft-wrap-text-labels-using-scaleslabel_wrap" id="toc-soft-wrap-text-labels-using-scaleslabel_wrap" class="nav-link" data-scroll-target="#soft-wrap-text-labels-using-scaleslabel_wrap">Soft wrap text labels using scales::label_wrap()</a></li>
+  <li><a href="#soft-wrap-or-stagger-text-labels-to-stop-them-overlapping" id="toc-soft-wrap-or-stagger-text-labels-to-stop-them-overlapping" class="nav-link" data-scroll-target="#soft-wrap-or-stagger-text-labels-to-stop-them-overlapping">Soft wrap or stagger text labels to stop them overlapping</a></li>
   <li><a href="#automatically-label-facets-with-letters" id="toc-automatically-label-facets-with-letters" class="nav-link" data-scroll-target="#automatically-label-facets-with-letters">Automatically label facets with letters</a></li>
   <li><a href="#beautiful-colour-schemes-with-metbrewer" id="toc-beautiful-colour-schemes-with-metbrewer" class="nav-link" data-scroll-target="#beautiful-colour-schemes-with-metbrewer">Beautiful colour schemes with MetBrewer</a></li>
   <li><a href="#add-a-final-null-layer-to-allow-you-to-comment-out-layers" id="toc-add-a-final-null-layer-to-allow-you-to-comment-out-layers" class="nav-link" data-scroll-target="#add-a-final-null-layer-to-allow-you-to-comment-out-layers">Add a final NULL layer to allow you to comment out layers</a></li>
@@ -296,13 +296,15 @@ Learning objectives
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in required packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> penguins</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># have a look at the data</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MetBrewer)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> penguins</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># have a look at the data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 344
 Columns: 8
@@ -419,23 +421,111 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </div>
 </div>
 </section>
-<section id="soft-wrap-text-labels-using-scaleslabel_wrap" class="level3">
-<h3 class="anchored" data-anchor-id="soft-wrap-text-labels-using-scaleslabel_wrap">Soft wrap text labels using scales::label_wrap()</h3>
+<section id="soft-wrap-or-stagger-text-labels-to-stop-them-overlapping" class="level3">
+<h3 class="anchored" data-anchor-id="soft-wrap-or-stagger-text-labels-to-stop-them-overlapping">Soft wrap or stagger text labels to stop them overlapping</h3>
+<p>Ok these two are quite recent finds for me, and I absolutely love them. Sometimes your x labels might be really long, and the text can overlap with each other. I used to manually add new lines into my text by inserting <code>\n</code> where I wanted new text to me. But now two approaches exist that can automatically improve spacing between labels on the x axis. These are <strong>scales::label_wrap</strong> which can automatically create new lines for long axis labels and <strong>guide_axis()</strong> which can stagger axis labels to prevent overlapping.</p>
+<p>We will demonstrate them both below, by adding the Latin names for each penguin species to the dataset. We will add them in using <strong>case_when()</strong> and then show both plots next to each other using <strong>patchwork</strong> which makes it really easy to combine individual plots. For free you also get code to italicise the axis labels as they are latin names!</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(d, <span class="at">latin_name =</span> <span class="fu">case_when</span>(species <span class="sc">==</span> <span class="st">"Gentoo"</span> <span class="sc">~</span> <span class="st">"Pygoscelis papua"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                      species <span class="sc">==</span> <span class="st">"Chinstrap"</span> <span class="sc">~</span> <span class="st">"Pygoscelis antarcticus"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                      species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">~</span> <span class="st">"Pygoscelis adeliae"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># first to softwrap the text</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(latin_name, bill_length_mm, <span class="at">col =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span> <span class="co"># add first empty plot layer</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># add boxplot, do not plot the outliers</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"crossbar"</span>, <span class="at">fatten =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">width =</span> <span class="fl">0.4</span>, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.data =</span> <span class="cf">function</span>(x){<span class="fu">return</span>(<span class="fu">c</span>(<span class="at">y =</span> stats<span class="sc">::</span><span class="fu">median</span>(x), <span class="at">ymin =</span> stats<span class="sc">::</span><span class="fu">median</span>(x), <span class="at">ymax =</span> stats<span class="sc">::</span><span class="fu">median</span>(x)))}) <span class="sc">+</span> <span class="co"># add median line to the boxplots</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">'white'</span>) <span class="sc">+</span> <span class="co"># add jittered raw points</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span> <span class="co"># change theme to the one I like (others are available)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Species'</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Bill length (mm)'</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Do different penguin species have different bill lengths?'</span>) <span class="sc">+</span> <span class="co"># change labels</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">65</span>)) <span class="sc">+</span> <span class="co"># change y limits</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="st">'none'</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="co"># turn off legend</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)) <span class="sc">+</span> <span class="co"># italicise x axis labels</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">10</span>)) <span class="co"># soft wrap labels</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">n.dodge =</span> <span class="dv">2</span>)) <span class="co"># stagger axis labels</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/plot_softwrap-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Either of these look great, but I think <strong>scales::label_wrap()</strong> is my favourite. So simple and so effective!</p>
 </section>
 <section id="automatically-label-facets-with-letters" class="level3">
 <h3 class="anchored" data-anchor-id="automatically-label-facets-with-letters">Automatically label facets with letters</h3>
+<p>One thing I often do is create faceted plots where each plot represents a different treatment or subset of the data. This is really easy to do with <strong>ggplot2</strong> using <strong>facet_wrap()</strong>. However, the default facets are poorly labelled, are not numbered (generally with a, b, c for publications), and have a grey fill colour.</p>
+<p>However, these are all issues we can solve to create publication-ready facet labels. We will demonstrate this by plotting a different trait on each facet (bill length, bill depth, flipper length, body mass). We will create the long data using <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html"><strong>pivot_longer()</strong></a> and use <strong>case_when()</strong> to make sure the labels on each facet are formatted correctly (i.e.&nbsp;spaces instead of underscores.</p>
+<p>We can write a function to automatically label each facet, and change theme elements to align text and change the strip background colour.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="co"># create column to id each individual penguin</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(., <span class="at">cols =</span> <span class="fu">c</span>(bill_length_mm<span class="sc">:</span>body_mass_g), <span class="at">names_to =</span> <span class="st">'trait'</span>, <span class="at">values_to =</span> <span class="st">'value'</span>) <span class="sc">%&gt;%</span> <span class="co"># go from wide to long format for the traits</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facet_label =</span> <span class="fu">case_when</span>(trait <span class="sc">==</span> <span class="st">'bill_length_mm'</span> <span class="sc">~</span> <span class="st">"Bill Length (mm)"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                 trait <span class="sc">==</span> <span class="st">"bill_depth_mm"</span> <span class="sc">~</span> <span class="st">"Bill Depth (mm)"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                 trait <span class="sc">==</span> <span class="st">"body_mass_g"</span> <span class="sc">~</span> <span class="st">"Body Mass (g)"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                 trait <span class="sc">==</span> <span class="st">"flipper_length_mm"</span> <span class="sc">~</span> <span class="st">"Flipper Length (mm)"</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># create function to add letter to facet labels</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>letter_facets <span class="ot">&lt;-</span> <span class="cf">function</span> (string){</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    len <span class="ot">&lt;-</span> <span class="fu">length</span>(string)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    string <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"("</span>, letters[<span class="dv">1</span><span class="sc">:</span>len], <span class="st">") "</span>, string, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(string)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_format, <span class="fu">aes</span>(species, value, <span class="at">col =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span> <span class="co"># add first empty plot layer</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span> <span class="co"># add boxplot, do not plot the outliers</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"crossbar"</span>, <span class="at">fatten =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">width =</span> <span class="fl">0.4</span>, </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.data =</span> <span class="cf">function</span>(x){<span class="fu">return</span>(<span class="fu">c</span>(<span class="at">y =</span> stats<span class="sc">::</span><span class="fu">median</span>(x), <span class="at">ymin =</span> stats<span class="sc">::</span><span class="fu">median</span>(x), <span class="at">ymax =</span> stats<span class="sc">::</span><span class="fu">median</span>(x)))}) <span class="sc">+</span> <span class="co"># add median line to the boxplots</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">'white'</span>) <span class="sc">+</span> <span class="co"># add jittered raw points</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span> <span class="co"># change theme to the one I like (others are available)</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Species'</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Trait measurement'</span>) <span class="sc">+</span> <span class="co"># change labels</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="st">'none'</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="st">'none'</span>) <span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>facet_label, <span class="at">scales =</span> <span class="st">'free_y'</span>, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">facet_label =</span> letter_facets)) <span class="sc">+</span> <span class="co"># facet by the label column so the text is correct </span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/plot_facets-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>BINGO THIS LOOKS SHAMAZING.</p>
 </section>
 <section id="beautiful-colour-schemes-with-metbrewer" class="level3">
 <h3 class="anchored" data-anchor-id="beautiful-colour-schemes-with-metbrewer">Beautiful colour schemes with MetBrewer</h3>
+<p>I take a lot of time looking at colours to use in my plots. I have used <a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">viridis</a> before, the colour schemes from <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">colorbrewer</a>, and Pokémon inspired colour schemes using <a href="https://github.com/timcdlucas/palettetown"><strong>palettetown</strong></a>. If you are so inclined, I have also started writing a small package (<a href="https://github.com/padpadpadpad/BrewerUoE">BrewerUoE</a>) to access the new University of Exeter colours in R.</p>
+<p>However, the most beautiful colour schemes I have ever seen are those provided by <a href="https://github.com/BlakeRMills/MetBrewer"><strong>MetBrewer</strong></a>, which are palettes inspired by works at the Metropolitan Museum of Art in New York. They are just sensational, and easy to add directly to your plots! We show an example how to below, but there are more examples on MetBrewer’s GitHub.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">met.brewer</span>(<span class="st">"Klimt"</span>, <span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">met.brewer</span>(<span class="st">"Klimt"</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/plot_metbrewer-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="add-a-final-null-layer-to-allow-you-to-comment-out-layers" class="level3">
 <h3 class="anchored" data-anchor-id="add-a-final-null-layer-to-allow-you-to-comment-out-layers">Add a final NULL layer to allow you to comment out layers</h3>
 <p>It is common for me to play around with different layers and switch some on and off with a hashtag. If you hash out the final layer then the layer before it with a <code>+</code> carries on to the next set of code. If you add a final <code>+ NULL</code> to the plot then this behaviour doesn’t happen.</p>
 <p>Lets say we wanted to see the plot without the text labels. We can turn them off by hashtagging them out (in case we want to add them back in later), and the final <code>NULL</code> means the plot still works.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(x = species, y = max_bill_length + 5, label = paste('n = ', n, sep = '')), d_n, size = pts(12), col = 'black') + # add text label</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># add NULL layer to allow easy commenting out of layers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(x = species, y = max_bill_length + 5, label = paste('n = ', n, sep = '')), d_n, size = pts(12), col = 'black') + # add text label</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># add NULL layer to allow easy commenting out of layers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -450,22 +540,30 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <h2 class="anchored" data-anchor-id="awesome-ggplot2-extensions">Awesome ggplot2 extensions</h2>
 <p><strong>gpgplot2</strong> is so popular as a plotting system that it has become its own ecosystem, with people developing tools and extensions to complement and build extra functionality to <strong>ggplot2</strong>. Below are some of our favourites:</p>
 <ul>
-<li>ggdist</li>
-<li>ggtree</li>
-<li>patchwork</li>
+<li><a href="https://mjskay.github.io/ggdist/"><strong>ggdist</strong></a> which provides geoms and stats for visualising distributions and uncertainty.</li>
+<li><a href="https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html"><strong>ggtree</strong></a> to make phylogenetic trees using <strong>ggplot2</strong>.</li>
+<li><a href="https://patchwork.data-imaginist.com/"><strong>patchwork</strong></a> for combining separate plots.</li>
+<li><a href="https://github.com/timcdlucas/palettetown"><strong>palettetown</strong></a> for Pokémon themed colour schemes. Whats better than Charizard colours!</li>
 </ul>
 </section>
 </section>
 <section id="summary" class="level1">
 <h1>Summary</h1>
+<p>We have shown how publication-ready plots can quickly be made using <strong>ggplot2</strong>, and also highlighted some functions and tips we have found super useful when we make plots. I have found that making plots in <strong>ggplot2</strong> follows the 80/20 rule. You get 80% of the way there in 20% of the time, but then the finishing touches can take very, very long. Hopefully some of the code, approaches, tips, and links provided here help you get started!</p>
+<p>All of the code here can be used to create your own plots Have fun!</p>
 <section id="additional-resources" class="level3">
 <h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<ul>
+<li><strong>ggplot2</strong> <a href="https://ggplot2.tidyverse.org/">website</a></li>
+<li>Cedric Scherer’s whole <a href="https://www.cedricscherer.com/">website</a> (I LOVE HIS VISUALISATIONS), but his <a href="https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#legends">tutorial</a> for creating beautiful visualisations in <strong>ggplot2</strong> is amazing.</li>
+</ul>
 </section>
 <section id="acknowledgements" class="level3">
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.</p>
 <ul>
-<li>Add here.</li>
+<li>We are indebted to the <strong>tidyverse</strong> team of developers, and especially Hadley Wickham for creating and maintaining <strong>ggplot2</strong>.</li>
+<li>Tips for creating the post, website, and format for the walkthroughs were taken from Stephanie Hicks’ Course <a href="https://www.stephaniehicks.com/jhustatcomputing2022/">website</a> and <a href="https://github.com/stephaniehicks/jhustatcomputing2022">source code</a>. She has a great post introducing <a href="https://www.stephaniehicks.com/jhustatcomputing2022/posts/2022-09-15-ggplot2-plotting-system-part-2/"><strong>ggplot2</strong></a> that goes into more depth than we do here.</li>
 </ul>
 
 
