@@ -1,0 +1,201 @@
+---
+title: "intRos: Publication ready plots using ggplot2"
+author: 
+  - name: Daniel Padfield
+    affiliation: University of Exeter
+description: "Make publication ready plots in R using ggplot2 and learn some new tips and tricks"
+date: "MM/DD/YYYY"
+date-modified: last-modified
+categories: [R, ggplot2, tidyverse]
+execute:
+  message: false
+  warning: false
+---
+
+# Outline
+
+This is where we discuss the need and rationale for this walkthrough.
+
+# Prerequisites
+
+- Have R installed
+- Have the **tidyverse** package installed
+- Hopefully have a plot you want to make using **ggplot2** or have some aesthetics you would like to change on a current plot.
+
+# Learning objectives
+
+::: callout-note
+# Learning objectives
+
+**This introduction should allow you to:**
+
+- Have a basic understanding of the way in which **ggplot2** "works" (i.e. the grammar of graphics)
+- Understand the format data needs to be in to be used in **ggplot2**
+- Make pubication-ready plots using **ggplot2**
+- Know where to learn more about **ggplot2**
+:::
+
+# Making plots with ggplot2
+
+This walkthrough will lean heavy on tools from the **tidyverse** for data wrangling, and the **palmerpenguins** package for the example data. The first thing we will do is load in the necessary packages and load in the dataset we will use to create our tables.
+
+```{r load_packages}
+# load in required packages
+library(tidyverse)
+library(palmerpenguins)
+
+# load in data
+data("penguins")
+d <- penguins
+
+# have a look at the data
+glimpse(d)
+```
+
+This dataset contain data for 344 penguins, consisting of three species of penguins, collected from 3 islands in the Palmer Archipelago, Antarctica.
+
+## Preparing your dataset for ggplot2
+
+For **ggplot2**, your data wants to be organised in long format, as opposed to wide.
+
+## Make a first plot using ggplot2
+
+We will make a boxplot of how bill length changes between different species of penguin. And then we will add the raw points over the top. In each layer, the **aes()** function is used to tell **ggplot2** which arguments depend on aspects of the dataset (e.g. col = species). Arguments set outside of **aes()** do not rely on the dataset (e.g. size = 3, col = 'black').
+
+```{r first_plot}
+#| fig-height: 5
+#| fig-width: 7
+#| fig-align: center
+
+# make first box plot with raw points
+ggplot(d, aes(species, bill_length_mm, col = species)) + # add first empty plot layer
+  geom_boxplot(outlier.shape = NA) + # add boxplot, do not plot the outliers
+  geom_jitter(width = 0.2) # add jittered raw points
+```
+
+Ok this looks nice. Here I put the **aes()** commands inside the original call to **ggplot()** as then those arguments are passed to all other layers (unless overridden by another **aes()**). This looks quite nice, but we can change a bunch of other things to make it look nicer.
+
+## Adding extra layers to ggplot2
+
+There are a bunch of things I do as standard when I am making a plot (and a boxplot in particular):
+
+- Change the axis labels
+- Remove the legend if not needed
+- Change the axis limits
+- Change the theme and the text size
+- I dislike the default box plot so I colour the whole thing and then add a median bar in white (see below)
+
+The important thing is to create your own style. To do what you think looks best, but all the options are documented nicely on their [website](https://ggplot2.tidyverse.org/). There are many more detailed resources around, so instead here we will document common things we do.
+
+```{r second_plot}
+#| fig-height: 5
+#| fig-width: 7
+#| fig-align: center
+
+# make next box plot with raw points
+p1 <- ggplot(d, aes(species, bill_length_mm, col = species, fill = species)) + # add first empty plot layer
+  geom_boxplot(outlier.shape = NA) + # add boxplot, do not plot the outliers
+  stat_summary(geom = "crossbar", fatten = 2, color = "white", width = 0.4, 
+               fun.data = function(x){return(c(y = stats::median(x), ymin = stats::median(x), ymax = stats::median(x)))}) + # add median line to the boxplots
+  geom_jitter(width = 0.2, shape = 21, fill = 'white') + # add jittered raw points
+  theme_bw(base_size = 14) + # change theme to the one I like (others are available)
+  labs(x = 'Species',
+       y = 'Bill length (mm)',
+       title = 'Do different penguin species have different bill lengths?') + # change labels
+  ylim(c(30,65)) + # change y limits
+  guides(col = 'none',
+         fill = 'none') # turn off legend
+
+p1
+```
+
+And there - with relatively few lines of code - we have a plot that is ready for inserting into a publication. This can be easily saved out using **ggsave()**
+
+```{r save_ggplot}
+#| eval: false
+
+# save out plot using ggsave
+ggsave('plot_one.png', p1, width = 5, height = 7)
+```
+
+## Our favourite tips and tricks when making plots
+
+I have a set of rules I follow when making plots with **ggplot2**. Some may be different to yours but they might have some use:
+
+- Generally I make my datasets **BEFORE** they go into **ggplot2**. This includes checking for `NA` and `Inf` values as these are super important to know about when visualising and analysing your data! 
+- Layers work iteratively (later layers go on top of earlier layers) so make sure layers you want to be in the background (e.g. boxplot) are before layers you want to overlay (e.g. the raw data)
+- Only use **stat_smooth()** for exploring datasets. When plotting model predictions and confidence intervals, create a dataframe for them and then feed that into **ggplot2**.
+
+### Convert text size in geom_label() or geom_text() to pts used for labels
+
+Lets say we wanted to add text to the plot. For example, in the plot above maybe we want to add the total number of penguins sampled for each species. By default **geom_text()** and **geom_label()** use a size guide that is different to the font size set for the axis and tick labels. However, Andrew Heiss has written a function to convert between those so we can easily define the font size in the regular way. 
+
+We will use functions from the **tidyverse** to create a data frame with the total number of penguins sampled and the max bill length for each penguin. Creating a data frame with the x and y coordinates of where I want the text to go on the plot, and a column for the label, is how I approach adding text labels to an existing **ggplot**.
+
+```{r example_geom_text}
+#| fig-height: 5
+#| fig-width: 7
+#| fig-align: center
+
+# define function for pts
+pts <- function(x){
+    as.numeric(grid::convertX(grid::unit(x, "points"), "mm"))
+  }
+
+# calculate n for putting each species
+# remove NAs because they are not in the plot
+d_n <- filter(d, !is.na(bill_length_mm)) %>%
+  group_by(species) %>%
+  summarise(n = n(),
+            max_bill_length = max(bill_length_mm)) %>%
+  ungroup()
+
+# make plot with text
+# make next box plot with raw points
+p1 +
+  geom_text(aes(x = species, y = max_bill_length + 5, label = paste('n = ', n, sep = '')), d_n, size = pts(12), col = 'black') # add text label
+
+```
+
+### Soft wrap text labels using scales::label_wrap()
+
+### Automatically label facets with letters
+
+### Beautiful colour schemes with MetBrewer
+
+### Add a final NULL layer to allow you to comment out layers
+
+It is common for me to play around with different layers and switch some on and off with a hashtag. If you hash out the final layer then the layer before it with a `+` carries on to the next set of code. If you add a final `+ NULL` to the plot then this behaviour doesn't happen.
+
+Lets say we wanted to see the plot without the text labels. We can turn them off by hashtagging them out (in case we want to add them back in later), and the final `NULL` means the plot still works.
+
+```{r plot_null}
+#| fig-height: 5
+#| fig-width: 7
+#| fig-align: center
+
+p1 +
+  #geom_text(aes(x = species, y = max_bill_length + 5, label = paste('n = ', n, sep = '')), d_n, size = pts(12), col = 'black') + # add text label
+  NULL # add NULL layer to allow easy commenting out of layers
+
+
+```
+
+## Awesome ggplot2 extensions
+
+**gpgplot2** is so popular as a plotting system that it has become its own ecosystem, with people developing tools and extensions to complement and build extra functionality to **ggplot2**. Below are some of our favourites:
+
+- ggdist
+- ggtree
+- patchwork
+
+# Summary
+
+### Additional Resources
+
+### Acknowledgements
+
+We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.
+
+-   Add here.
+

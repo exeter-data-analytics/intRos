@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</loc>
+    <lastmod>2023-02-24T18:07:56.013Z</lastmod>
+  </url>
+  <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</loc>
-    <lastmod>2023-02-14T14:06:34.661Z</lastmod>
+    <lastmod>2023-02-24T18:07:57.134Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/index.html</loc>
-    <lastmod>2023-02-14T14:06:34.956Z</lastmod>
+    <lastmod>2023-02-24T18:07:57.452Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts.html</loc>
-    <lastmod>2023-02-14T14:06:35.222Z</lastmod>
+    <lastmod>2023-02-24T18:07:57.762Z</lastmod>
   </url>
 </urlset>

@@ -10,7 +10,240 @@
 <atom:link href="https://exeter-data-analytics.github.io/intRos/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.2.269</generator>
-<lastBuildDate>Tue, 14 Feb 2023 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Invalid Date</lastBuildDate>
+<item>
+  <title>intRos: Publication ready plots using ggplot2</title>
+  <dc:creator>Daniel Padfield</dc:creator>
+  <link>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="outline" class="level1">
+<h1>Outline</h1>
+<p>This is where we discuss the need and rationale for this walkthrough.</p>
+</section>
+<section id="prerequisites" class="level1">
+<h1>Prerequisites</h1>
+<ul>
+<li>Have R installed</li>
+<li>Have the <strong>tidyverse</strong> package installed</li>
+<li>Hopefully have a plot you want to make using <strong>ggplot2</strong> or have some aesthetics you would like to change on a current plot.</li>
+</ul>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This introduction should allow you to:</strong></p>
+<ul>
+<li>Have a basic understanding of the way in which <strong>ggplot2</strong> “works” (i.e.&nbsp;the grammar of graphics)</li>
+<li>Understand the format data needs to be in to be used in <strong>ggplot2</strong></li>
+<li>Make pubication-ready plots using <strong>ggplot2</strong></li>
+<li>Know where to learn more about <strong>ggplot2</strong></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="making-plots-with-ggplot2" class="level1">
+<h1>Making plots with ggplot2</h1>
+<p>This walkthrough will lean heavy on tools from the <strong>tidyverse</strong> for data wrangling, and the <strong>palmerpenguins</strong> package for the example data. The first thing we will do is load in the necessary packages and load in the dataset we will use to create our tables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;"># load in required packages</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;">library</span>(tidyverse)</span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;">library</span>(palmerpenguins)</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="co" style="color: #5E5E5E;"># load in data</span></span>
+<span id="cb1-6"><span class="fu" style="color: #4758AB;">data</span>(<span class="st" style="color: #20794D;">"penguins"</span>)</span>
+<span id="cb1-7">d <span class="ot" style="color: #003B4F;">&lt;-</span> penguins</span>
+<span id="cb1-8"></span>
+<span id="cb1-9"><span class="co" style="color: #5E5E5E;"># have a look at the data</span></span>
+<span id="cb1-10"><span class="fu" style="color: #4758AB;">glimpse</span>(d)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+<p>This dataset contain data for 344 penguins, consisting of three species of penguins, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+<section id="preparing-your-dataset-for-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-your-dataset-for-ggplot2">Preparing your dataset for ggplot2</h2>
+<p>For <strong>ggplot2</strong>, your data wants to be organised in long format, as opposed to wide.</p>
+</section>
+<section id="make-a-first-plot-using-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="make-a-first-plot-using-ggplot2">Make a first plot using ggplot2</h2>
+<p>We will make a boxplot of how bill length changes between different species of penguin. And then we will add the raw points over the top. In each layer, the <strong>aes()</strong> function is used to tell <strong>ggplot2</strong> which arguments depend on aspects of the dataset (e.g.&nbsp;col = species). Arguments set outside of <strong>aes()</strong> do not rely on the dataset (e.g.&nbsp;size = 3, col = ‘black’).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="co" style="color: #5E5E5E;"># make first box plot with raw points</span></span>
+<span id="cb3-2"><span class="fu" style="color: #4758AB;">ggplot</span>(d, <span class="fu" style="color: #4758AB;">aes</span>(species, bill_length_mm, <span class="at" style="color: #657422;">col =</span> species)) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add first empty plot layer</span></span>
+<span id="cb3-3">  <span class="fu" style="color: #4758AB;">geom_boxplot</span>(<span class="at" style="color: #657422;">outlier.shape =</span> <span class="cn" style="color: #8f5902;">NA</span>) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add boxplot, do not plot the outliers</span></span>
+<span id="cb3-4">  <span class="fu" style="color: #4758AB;">geom_jitter</span>(<span class="at" style="color: #657422;">width =</span> <span class="fl" style="color: #AD0000;">0.2</span>) <span class="co" style="color: #5E5E5E;"># add jittered raw points</span></span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index_files/figure-html/first_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ok this looks nice. Here I put the <strong>aes()</strong> commands inside the original call to <strong>ggplot()</strong> as then those arguments are passed to all other layers (unless overridden by another <strong>aes()</strong>). This looks quite nice, but we can change a bunch of other things to make it look nicer.</p>
+</section>
+<section id="adding-extra-layers-to-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="adding-extra-layers-to-ggplot2">Adding extra layers to ggplot2</h2>
+<p>There are a bunch of things I do as standard when I am making a plot (and a boxplot in particular):</p>
+<ul>
+<li>Change the axis labels</li>
+<li>Remove the legend if not needed</li>
+<li>Change the axis limits</li>
+<li>Change the theme and the text size</li>
+<li>I dislike the default box plot so I colour the whole thing and then add a median bar in white (see below)</li>
+</ul>
+<p>The important thing is to create your own style. To do what you think looks best, but all the options are documented nicely on their <a href="https://ggplot2.tidyverse.org/">website</a>. There are many more detailed resources around, so instead here we will document common things we do.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="co" style="color: #5E5E5E;"># make next box plot with raw points</span></span>
+<span id="cb4-2">p1 <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">ggplot</span>(d, <span class="fu" style="color: #4758AB;">aes</span>(species, bill_length_mm, <span class="at" style="color: #657422;">col =</span> species, <span class="at" style="color: #657422;">fill =</span> species)) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add first empty plot layer</span></span>
+<span id="cb4-3">  <span class="fu" style="color: #4758AB;">geom_boxplot</span>(<span class="at" style="color: #657422;">outlier.shape =</span> <span class="cn" style="color: #8f5902;">NA</span>) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add boxplot, do not plot the outliers</span></span>
+<span id="cb4-4">  <span class="fu" style="color: #4758AB;">stat_summary</span>(<span class="at" style="color: #657422;">geom =</span> <span class="st" style="color: #20794D;">"crossbar"</span>, <span class="at" style="color: #657422;">fatten =</span> <span class="dv" style="color: #AD0000;">2</span>, <span class="at" style="color: #657422;">color =</span> <span class="st" style="color: #20794D;">"white"</span>, <span class="at" style="color: #657422;">width =</span> <span class="fl" style="color: #AD0000;">0.4</span>, </span>
+<span id="cb4-5">               <span class="at" style="color: #657422;">fun.data =</span> <span class="cf" style="color: #003B4F;">function</span>(x){<span class="fu" style="color: #4758AB;">return</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="at" style="color: #657422;">y =</span> stats<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">median</span>(x), <span class="at" style="color: #657422;">ymin =</span> stats<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">median</span>(x), <span class="at" style="color: #657422;">ymax =</span> stats<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">median</span>(x)))}) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add median line to the boxplots</span></span>
+<span id="cb4-6">  <span class="fu" style="color: #4758AB;">geom_jitter</span>(<span class="at" style="color: #657422;">width =</span> <span class="fl" style="color: #AD0000;">0.2</span>, <span class="at" style="color: #657422;">shape =</span> <span class="dv" style="color: #AD0000;">21</span>, <span class="at" style="color: #657422;">fill =</span> <span class="st" style="color: #20794D;">'white'</span>) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># add jittered raw points</span></span>
+<span id="cb4-7">  <span class="fu" style="color: #4758AB;">theme_bw</span>(<span class="at" style="color: #657422;">base_size =</span> <span class="dv" style="color: #AD0000;">14</span>) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># change theme to the one I like (others are available)</span></span>
+<span id="cb4-8">  <span class="fu" style="color: #4758AB;">labs</span>(<span class="at" style="color: #657422;">x =</span> <span class="st" style="color: #20794D;">'Species'</span>,</span>
+<span id="cb4-9">       <span class="at" style="color: #657422;">y =</span> <span class="st" style="color: #20794D;">'Bill length (mm)'</span>,</span>
+<span id="cb4-10">       <span class="at" style="color: #657422;">title =</span> <span class="st" style="color: #20794D;">'Do different penguin species have different bill lengths?'</span>) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># change labels</span></span>
+<span id="cb4-11">  <span class="fu" style="color: #4758AB;">ylim</span>(<span class="fu" style="color: #4758AB;">c</span>(<span class="dv" style="color: #AD0000;">30</span>,<span class="dv" style="color: #AD0000;">65</span>)) <span class="sc" style="color: #5E5E5E;">+</span> <span class="co" style="color: #5E5E5E;"># change y limits</span></span>
+<span id="cb4-12">  <span class="fu" style="color: #4758AB;">guides</span>(<span class="at" style="color: #657422;">col =</span> <span class="st" style="color: #20794D;">'none'</span>,</span>
+<span id="cb4-13">         <span class="at" style="color: #657422;">fill =</span> <span class="st" style="color: #20794D;">'none'</span>) <span class="co" style="color: #5E5E5E;"># turn off legend</span></span>
+<span id="cb4-14"></span>
+<span id="cb4-15">p1</span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index_files/figure-html/second_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And there - with relatively few lines of code - we have a plot that is ready for inserting into a publication. This can be easily saved out using <strong>ggsave()</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="co" style="color: #5E5E5E;"># save out plot using ggsave</span></span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;">ggsave</span>(<span class="st" style="color: #20794D;">'plot_one.png'</span>, p1, <span class="at" style="color: #657422;">width =</span> <span class="dv" style="color: #AD0000;">5</span>, <span class="at" style="color: #657422;">height =</span> <span class="dv" style="color: #AD0000;">7</span>)</span></code></pre></div>
+</div>
+</section>
+<section id="our-favourite-tips-and-tricks-when-making-plots" class="level2">
+<h2 class="anchored" data-anchor-id="our-favourite-tips-and-tricks-when-making-plots">Our favourite tips and tricks when making plots</h2>
+<p>I have a set of rules I follow when making plots with <strong>ggplot2</strong>. Some may be different to yours but they might have some use:</p>
+<ul>
+<li>Generally I make my datasets <strong>BEFORE</strong> they go into <strong>ggplot2</strong>. This includes checking for <code>NA</code> and <code>Inf</code> values as these are super important to know about when visualising and analysing your data!</li>
+<li>Layers work iteratively (later layers go on top of earlier layers) so make sure layers you want to be in the background (e.g.&nbsp;boxplot) are before layers you want to overlay (e.g.&nbsp;the raw data)</li>
+<li>Only use <strong>stat_smooth()</strong> for exploring datasets. When plotting model predictions and confidence intervals, create a dataframe for them and then feed that into <strong>ggplot2</strong>.</li>
+</ul>
+<section id="convert-text-size-in-geom_label-or-geom_text-to-pts-used-for-labels" class="level3">
+<h3 class="anchored" data-anchor-id="convert-text-size-in-geom_label-or-geom_text-to-pts-used-for-labels">Convert text size in geom_label() or geom_text() to pts used for labels</h3>
+<p>Lets say we wanted to add text to the plot. For example, in the plot above maybe we want to add the total number of penguins sampled for each species. By default <strong>geom_text()</strong> and <strong>geom_label()</strong> use a size guide that is different to the font size set for the axis and tick labels. However, Andrew Heiss has written a function to convert between those so we can easily define the font size in the regular way.</p>
+<p>We will use functions from the <strong>tidyverse</strong> to create a data frame with the total number of penguins sampled and the max bill length for each penguin. Creating a data frame with the x and y coordinates of where I want the text to go on the plot, and a column for the label, is how I approach adding text labels to an existing <strong>ggplot</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="co" style="color: #5E5E5E;"># define function for pts</span></span>
+<span id="cb6-2">pts <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="cf" style="color: #003B4F;">function</span>(x){</span>
+<span id="cb6-3">    <span class="fu" style="color: #4758AB;">as.numeric</span>(grid<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">convertX</span>(grid<span class="sc" style="color: #5E5E5E;">::</span><span class="fu" style="color: #4758AB;">unit</span>(x, <span class="st" style="color: #20794D;">"points"</span>), <span class="st" style="color: #20794D;">"mm"</span>))</span>
+<span id="cb6-4">  }</span>
+<span id="cb6-5"></span>
+<span id="cb6-6"><span class="co" style="color: #5E5E5E;"># calculate n for putting each species</span></span>
+<span id="cb6-7"><span class="co" style="color: #5E5E5E;"># remove NAs because they are not in the plot</span></span>
+<span id="cb6-8">d_n <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">filter</span>(d, <span class="sc" style="color: #5E5E5E;">!</span><span class="fu" style="color: #4758AB;">is.na</span>(bill_length_mm)) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb6-9">  <span class="fu" style="color: #4758AB;">group_by</span>(species) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb6-10">  <span class="fu" style="color: #4758AB;">summarise</span>(<span class="at" style="color: #657422;">n =</span> <span class="fu" style="color: #4758AB;">n</span>(),</span>
+<span id="cb6-11">            <span class="at" style="color: #657422;">max_bill_length =</span> <span class="fu" style="color: #4758AB;">max</span>(bill_length_mm)) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb6-12">  <span class="fu" style="color: #4758AB;">ungroup</span>()</span>
+<span id="cb6-13"></span>
+<span id="cb6-14"><span class="co" style="color: #5E5E5E;"># make plot with text</span></span>
+<span id="cb6-15"><span class="co" style="color: #5E5E5E;"># make next box plot with raw points</span></span>
+<span id="cb6-16">p1 <span class="sc" style="color: #5E5E5E;">+</span></span>
+<span id="cb6-17">  <span class="fu" style="color: #4758AB;">geom_text</span>(<span class="fu" style="color: #4758AB;">aes</span>(<span class="at" style="color: #657422;">x =</span> species, <span class="at" style="color: #657422;">y =</span> max_bill_length <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">5</span>, <span class="at" style="color: #657422;">label =</span> <span class="fu" style="color: #4758AB;">paste</span>(<span class="st" style="color: #20794D;">'n = '</span>, n, <span class="at" style="color: #657422;">sep =</span> <span class="st" style="color: #20794D;">''</span>)), d_n, <span class="at" style="color: #657422;">size =</span> <span class="fu" style="color: #4758AB;">pts</span>(<span class="dv" style="color: #AD0000;">12</span>), <span class="at" style="color: #657422;">col =</span> <span class="st" style="color: #20794D;">'black'</span>) <span class="co" style="color: #5E5E5E;"># add text label</span></span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index_files/figure-html/example_geom_text-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="soft-wrap-text-labels-using-scaleslabel_wrap" class="level3">
+<h3 class="anchored" data-anchor-id="soft-wrap-text-labels-using-scaleslabel_wrap">Soft wrap text labels using scales::label_wrap()</h3>
+</section>
+<section id="automatically-label-facets-with-letters" class="level3">
+<h3 class="anchored" data-anchor-id="automatically-label-facets-with-letters">Automatically label facets with letters</h3>
+</section>
+<section id="beautiful-colour-schemes-with-metbrewer" class="level3">
+<h3 class="anchored" data-anchor-id="beautiful-colour-schemes-with-metbrewer">Beautiful colour schemes with MetBrewer</h3>
+</section>
+<section id="add-a-final-null-layer-to-allow-you-to-comment-out-layers" class="level3">
+<h3 class="anchored" data-anchor-id="add-a-final-null-layer-to-allow-you-to-comment-out-layers">Add a final NULL layer to allow you to comment out layers</h3>
+<p>It is common for me to play around with different layers and switch some on and off with a hashtag. If you hash out the final layer then the layer before it with a <code>+</code> carries on to the next set of code. If you add a final <code>+ NULL</code> to the plot then this behaviour doesn’t happen.</p>
+<p>Lets say we wanted to see the plot without the text labels. We can turn them off by hashtagging them out (in case we want to add them back in later), and the final <code>NULL</code> means the plot still works.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">p1 <span class="sc" style="color: #5E5E5E;">+</span></span>
+<span id="cb7-2">  <span class="co" style="color: #5E5E5E;">#geom_text(aes(x = species, y = max_bill_length + 5, label = paste('n = ', n, sep = '')), d_n, size = pts(12), col = 'black') + # add text label</span></span>
+<span id="cb7-3">  <span class="cn" style="color: #8f5902;">NULL</span> <span class="co" style="color: #5E5E5E;"># add NULL layer to allow easy commenting out of layers</span></span></code></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index_files/figure-html/plot_null-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="awesome-ggplot2-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="awesome-ggplot2-extensions">Awesome ggplot2 extensions</h2>
+<p><strong>gpgplot2</strong> is so popular as a plotting system that it has become its own ecosystem, with people developing tools and extensions to complement and build extra functionality to <strong>ggplot2</strong>. Below are some of our favourites:</p>
+<ul>
+<li>ggdist</li>
+<li>ggtree</li>
+<li>patchwork</li>
+</ul>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.</p>
+<ul>
+<li>Add here.</li>
+</ul>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>ggplot2</category>
+  <category>tidyverse</category>
+  <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</guid>
+  <pubDate>Invalid Date</pubDate>
+</item>
 <item>
   <title>intRos: Reproducible tables with flextable</title>
   <dc:creator>Daniel Padfield</dc:creator>
