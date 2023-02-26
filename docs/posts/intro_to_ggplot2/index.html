@@ -218,7 +218,7 @@ gtag('config', 'G-7BMXZGJQQY', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">February 24, 2023</p>
+        <p class="date-modified">February 26, 2023</p>
       </div>
     </div>
       
@@ -267,7 +267,9 @@ gtag('config', 'G-7BMXZGJQQY', { 'anonymize_ip': true});
 
 <section id="outline" class="level1">
 <h1>Outline</h1>
-<p>This is where we discuss the need and rationale for this walkthrough.</p>
+<p>I love making graphs! To explore data, to plot model results, just for the fun of making plots. I imagine we have all spent a huge amount of time making our plots ready for publication. Here we have a quick walkthrough of using <strong>ggplot2</strong> to create graphs for publication, and a few tips and tricks we have learned along the way. <em>If you have a favourite ggplot2 trick or tip then we would love for you to get in contact with us and for you add it to this walkthrough. Or if you’re feeling adventurous, clone the <a href="https://github.com/exeter-data-analytics/intRos">GitHub repo</a>, add in your tip, re-render this quarto post, commit and push the changes, and start a Pull Request!</em></p>
+<p><strong>ggplot2</strong> is a popular data visualisation package in R that allows users to create high-quality and customisable graphics for data exploration, scientific publications, and presentations. Developed by Hadley Wickham, <strong>ggplot2</strong> is built on the principles of the Grammar of Graphics, which defines a set of rules for constructing and interpreting visualisations. With <strong>ggplot2</strong>, users can easily create a wide range of plots with advanced features such as facets, themes, and labels. Whether you are at the beginning of your science journey, or an old and grumpy PI, <strong>ggplot2</strong> provides a powerful and flexible tool for visualising data and gaining insights from it.</p>
+<p>Making a <strong>ggplot2</strong> is like writing and following a recipe. You start with the first instructions (a call to <strong>ggplot()</strong>), the next instruction (like the next item of the recipe) is signalled using a <code>+</code>, a new line, and new instructions are added sequentially. <strong>ggplot2</strong> works in a sequential fashion, later instructions add to what is already there, and sometimes counteract or override what previous instructions.</p>
 </section>
 <section id="prerequisites" class="level1">
 <h1>Prerequisites</h1>
@@ -335,7 +337,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="make-a-first-plot-using-ggplot2" class="level2">
 <h2 class="anchored" data-anchor-id="make-a-first-plot-using-ggplot2">Make a first plot using ggplot2</h2>
-<p>We will make a boxplot of how bill length changes between different species of penguin. And then we will add the raw points over the top. In each layer, the <strong>aes()</strong> function is used to tell <strong>ggplot2</strong> which arguments depend on aspects of the dataset (e.g.&nbsp;col = species). Arguments set outside of <strong>aes()</strong> do not rely on the dataset (e.g.&nbsp;size = 3, col = ‘black’).</p>
+<p>We will make a boxplot of how bill length changes between different species of penguin and add the raw points over the top. After making an initial plot call using <strong>ggplot()</strong>, different types of plot are specified using a <strong>geom_</strong> function (e.g.&nbsp;<strong>geom_boxplot()</strong> for boxplots, <strong>geom_point()</strong> for points, <strong>geom_line()</strong> for a line graph). In each layer, the <strong>aes()</strong> function is used to tell <strong>ggplot2</strong> which arguments depend on aspects of the dataset (e.g.&nbsp;col = species). Arguments set outside of <strong>aes()</strong> do not rely on the dataset (e.g.&nbsp;size = 3, col = ‘black’).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make first box plot with raw points</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(species, bill_length_mm, <span class="at">col =</span> species)) <span class="sc">+</span> <span class="co"># add first empty plot layer</span></span>
@@ -397,6 +399,9 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <p>I have a set of rules I follow when making plots with <strong>ggplot2</strong>. Some may be different to yours but they might have some use:</p>
 <ul>
 <li>Generally I make my datasets <strong>BEFORE</strong> they go into <strong>ggplot2</strong>. This includes checking for <code>NA</code> and <code>Inf</code> values as these are super important to know about when visualising and analysing your data!</li>
+<li><ul>
+<li>Plot the raw data whenever possible.</li>
+</ul></li>
 <li>Layers work iteratively (later layers go on top of earlier layers) so make sure layers you want to be in the background (e.g.&nbsp;boxplot) are before layers you want to overlay (e.g.&nbsp;the raw data)</li>
 <li>Only use <strong>stat_smooth()</strong> for exploring datasets. When plotting model predictions and confidence intervals, create a dataframe for them and then feed that into <strong>ggplot2</strong>.</li>
 </ul>
@@ -448,18 +453,17 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">'white'</span>) <span class="sc">+</span> <span class="co"># add jittered raw points</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span> <span class="co"># change theme to the one I like (others are available)</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'Species'</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Bill length (mm)'</span>,</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Do different penguin species have different bill lengths?'</span>) <span class="sc">+</span> <span class="co"># change labels</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">65</span>)) <span class="sc">+</span> <span class="co"># change y limits</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="st">'none'</span>,</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="co"># turn off legend</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)) <span class="sc">+</span> <span class="co"># italicise x axis labels</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">10</span>)) <span class="co"># soft wrap labels</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">n.dodge =</span> <span class="dv">2</span>)) <span class="co"># stagger axis labels</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Bill length (mm)'</span>) <span class="sc">+</span> <span class="co"># change labels</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">65</span>)) <span class="sc">+</span> <span class="co"># change y limits</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="st">'none'</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="co"># turn off legend</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"italic"</span>)) <span class="sc">+</span> <span class="co"># italicise x axis labels</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">10</span>)) <span class="co"># soft wrap labels</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">n.dodge =</span> <span class="dv">2</span>)) <span class="co"># stagger axis labels</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -548,7 +552,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 </section>
 <section id="awesome-ggplot2-extensions" class="level2">
 <h2 class="anchored" data-anchor-id="awesome-ggplot2-extensions">Awesome ggplot2 extensions</h2>
-<p><strong>gpgplot2</strong> is so popular as a plotting system that it has become its own ecosystem, with people developing tools and extensions to complement and build extra functionality to <strong>ggplot2</strong>. Below are some of our favourites:</p>
+<p><strong>gpgplot2</strong> is so popular as a plotting system that it has become its own ecosystem, with people developing tools and extensions to complement and build extra functionality to <strong>ggplot2</strong>. All of the extensions can be found <a href="https://exts.ggplot2.tidyverse.org/gallery/">here</a>, but below are some of our favourites:</p>
 <ul>
 <li><a href="https://mjskay.github.io/ggdist/"><strong>ggdist</strong></a> which provides geoms and stats for visualising distributions and uncertainty.</li>
 <li><a href="https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html"><strong>ggtree</strong></a> to make phylogenetic trees using <strong>ggplot2</strong>.</li>
@@ -565,6 +569,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
 <ul>
 <li><strong>ggplot2</strong> <a href="https://ggplot2.tidyverse.org/">website</a></li>
+<li><strong>ggplot2</strong> <a href="https://ggplot2-book.org/index.html">book</a></li>
+<li><strong>ggplot2</strong> <a href="../../posts/intro_to_ggplot2/ggplot2_cheatsheet.pdf">cheatsheet</a></li>
 <li>Cedric Scherer’s whole <a href="https://www.cedricscherer.com/">website</a> (I LOVE HIS VISUALISATIONS), but his <a href="https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#legends">tutorial</a> for creating beautiful visualisations in <strong>ggplot2</strong> is amazing.</li>
 </ul>
 </section>
