@@ -1,0 +1,116 @@
+---
+title: "intRos: Managing research projects with R Studio"
+author: 
+  - name: Stephen Lang
+    affiliation: University of Exeter
+description: "Manage your different research projects with R Studio and the {here} package"
+date: "MM/DD/YYYY"
+date-modified: last-modified
+categories: [R, RStudio projects, tidyverse, here]
+execute:
+  message: false
+  warning: false
+---
+
+# Outline
+
+When we're doing research, we often find ourselves working on more than one research project at time. Managing multiple folders of data and code can be confusing enough, but when we throw R into the mix, things can get messy very quickly. A large part of the confusion comes from how most folks manage research projects on their own system — which was been aptly summarised by the wonderful [Jenny Bryan](https://twitter.com/JennyBryan):
+
+> *If the first line of your R script is*
+> 
+> `setwd("C:\Users\jenny\path\that\only\I\have")`
+> 
+> *I will come into your office and SET YOUR COMPUTER ON FIRE* 🔥.
+> *If the first line of your R script is*
+> 
+> `rm(list = ls())`
+> 
+> *I will come into your office and SET YOUR COMPUTER ON FIRE* 🔥.
+
+While I won't come and set your computer on fire (especially because I have committed both of these coding crimes in the past), I do want to give you access to two really useful tools used by many of us to make our lives much easier for managing research projects, and much nicer for sharing code with collaborators. These two tools are: **R Studio projects** and the **`here`** package.
+
+# Prerequisites
+- Have [R and R Studio](https://posit.co/download/rstudio-desktop/) installed
+- Have the `tidyverse` and `here` packages installed
+- Have a small research project that you're ready to projectify, or some test code/data to make into a practice research project
+
+# Learning objectives
+
+::: callout-note
+# Learning objectives
+
+**This introduction should allow you to:**
+-   Develop an understanding of how R Studio projects function.
+-   Develop an understanding of how `here` can create reproducible filepaths.
+-   Use both tools together to create research projects that are stable, shareable and easy to work with!
+:::
+
+# Managing research projects in R Studio
+
+## RStudio projects
+
+R Studio is great, and if you don't already use it I'd highly recommend starting now! R Studio is what we'd call a IDE (Integrated Development Environment) that allows us to integrate with R to do much [more than execute code](https://posit.co/products/open-source/rstudio/). Despite its wide use in the science community, there's one bit of R Studio functionality that seems to regularly overlooked by many folks: "Projects". These projects — which you can start to explore from the drop-down menu in the top-right of R Studio — are designed for compartmentalising your work into separate contexts, which are great if you have multiple research projects on the go at once.
+
+`rm(list = ls())` is built to do one thing: nuke your entire environment and wipe the slate clean. While this might seem like good practice, it actually makes life tricky if you are in the middle of analysing one dataset and want to quickly jump into another research project to do something else; clearing your environment every time means you have to start from scratch, and if you forget to run it before diving into new code, any common variables will be overwritten and madness is likely to follow.
+
+RStudio projects resolve this issue by creating a separate R Studio instance for each new project, each with its own R session, environment, temporary files and working directory (see next section for more on filepaths).
+
+If we navigate to `New Project...` (either from `File` or the drop-down Projects toolbar in the top-right), we are given the option of creating a new R Studio project in one of three ways:
+- New directory (i.e. start from an empty folder)
+- Existing directory (when you already have a folder of code and data that you want to turn into a project)
+- Version control (when you want to start version control of a project — see @next-steps} for more info on this)
+
+Most of the time you'll be starting a new project in an empty folder, so we'll select the first `New Directory` option.
+![create_project.png](create_project.png)
+Next you're provided with a bunch of different project types, but we'll go for the simplest `New Project` option
+![project_type.png](project_type.png)
+Lastly, we get to choose the directory name (this is the name the project folder will have, so make sure it identifies your project clearly) and where this directory will be saved (i.e where on your computer you want to keep your research project folders).
+Note: If you tick the box to open in a new session (red circle), whatever you're currently working on in R Studio won't have to be saved and closed.
+![create_new_project.png](create_new_project.png)
+And that's it! You now have a nice folder ready to fill with data and code, and never need to use `rm(list = ls())` ever again.
+R Studio also did a couple of things for us in the background when we hit the `Create project` button:
+1. Created an `.Rproj` file in the top level of the folder (can be used to directly open each project in a new session, and also contains various options for project-specific settings)
+2. Created a hidden directory `.Rproj.user` where project-specific temporary files are stored (useful if you have a session terminate unexpectedly)
+3. Loaded the project into R Studio, with the project name displayed in the Projects toolbar (top-right) and also in front of the RStudio icon in the task bar (appearance differs between macOS and Windows).
+4. The top level of your working directory now starts wherever the `.Rproj` file is, so no more "C:\extremely\long\filepath\that\only\I\have" (**BUT** see next section on @the-here-package for making this even better).
+
+##Best practices (both for R Studio projects and project management overall)
+
+Once a project is created, it's worth adding folders to contain each of the relevant types of data for your research. For most of us this usually means something like the following: `raw_data`, `code`, `processed_data`, `figures` (folders should only contain data relevant to the research project).
+
+## The `here` package
+
+R Studio projects go a long way to making simpler folder paths, because the top-level directory (i.e. the filepath you would give to something like `setwd()`) for an R Studio project is the folder containing the `.Rproj` file. That said, we can make things even better and more reproducible by  making use of the `here` package, which helps make filepaths consistent between different operating systems. For example, while macOS users have filepaths separated by forward slashes (`/`), windows users have filepaths with backward slashes (`\`). This means that even with the shorter filepaths provided by `.Rproj` files, filepaths like `raw_data/2019` will only work for macOS users.
+
+In comes the `here` package to the rescue! We can use `here()` to make reproducible filepaths that work for everyone.
+You just need to write `here()` and list the sequence of folders within the project as arguments to make a new, robust filepath:
+
+```{r}
+install.packages(here)
+library(here)
+
+here()
+```
+
+Anywhere you'd normally write a long-winded filepath, you can just add `here()` and specify the folders you want:
+```{r}
+save_csv(test, here(data, test))
+```
+
+## Next steps
+
+Using these two sets of tools together, you're now primed to do some reproducible science on as many different projects as you want! But how can we go about sharing this work with others? While you can technically share the entire project folder with collaborators directly, we can also use version control software and online repositories to manage changes to our code and make it accessible to others. The main way folks do this is using git and GitHub, and we will do a later post on how to get set up with both in due course.
+
+# Summary
+
+### Additional Resources
+
+### Acknowledgements
+
+We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.
+
+-   Jenny Bryan's ['Ode to the `here` package'](https://github.com/jennybc/here_here)
+-   Malcom Barret's [blog post](https://malco.io/2018/11/05/why-should-i-use-the-here-package-when-i-m-already-using-projects/) on using the `here` package alongside projects
+-   Posit (previously known as RStudio) have a wealth of information on using the RStudio IDE, including [this great how-to guide](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects)
+-   The [`here`](https://here.r-lib.org/) package was developed and maintained by [Kirill Müller](https://github.com/krlmlr)
+
