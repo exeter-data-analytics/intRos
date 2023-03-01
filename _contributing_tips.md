@@ -4,7 +4,7 @@ This is a set of rules to follow for contributing to this repository. To re-rend
 
 1. run `git pull` to make sure the local repository is up-to-date. The easiest way to to do this is using the **Pull** button from the RStudio Git pane.
 
-1. when creating a new post, create a new folder for the post inside the `posts` directory. Then copy the post template into that folder using Terminal `cp _post_template.qmd posts/new_folder_name/indez.qmd`. Then edit that new file to create the new walkthrough. This means all of our walkthroughs have a skeleton template we can easily start with.
+1. when creating a new post, create a new folder for the post inside the `posts` directory. Then copy the post template into that folder using Terminal `cp _post_template.qmd posts/new_folder_name/index.qmd`. Then edit that new file to create the new walkthrough. This means all of our walkthroughs have a skeleton template we can easily start with.
 
 1. when creating the new walkthrough, have all images or resources used or referenced in that article **INSIDE** that walkthrough's folder. This will allow the **index.qmd** file to easily find everything it needs when rendering.
 
