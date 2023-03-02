@@ -17,7 +17,7 @@ website:
         href: https://github.com/exeter-data-analytics/intRos
 format:
   html:
-    theme: minty
+    theme: custom.scss
     css: styles.css
     toc: true
     
