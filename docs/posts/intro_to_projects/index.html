@@ -241,7 +241,7 @@ gtag('config', 'G-7BMXZGJQQY', { 'anonymize_ip': true});
   <ul class="collapse">
   <li><a href="#whats-wrong-with-rmlist-ls-anyway" id="toc-whats-wrong-with-rmlist-ls-anyway" class="nav-link" data-scroll-target="#whats-wrong-with-rmlist-ls-anyway">What’s wrong with <code>rm(list = ls())</code> anyway?</a></li>
   <li><a href="#the-magic-of-rstudio-and-projects" id="toc-the-magic-of-rstudio-and-projects" class="nav-link" data-scroll-target="#the-magic-of-rstudio-and-projects">The Magic of RStudio and Projects</a></li>
-  <li><a href="#best-practices-add-more-here" id="toc-best-practices-add-more-here" class="nav-link" data-scroll-target="#best-practices-add-more-here">Best practices (add more here?)</a></li>
+  <li><a href="#best-practices-for-structuring-your-project-folder" id="toc-best-practices-for-structuring-your-project-folder" class="nav-link" data-scroll-target="#best-practices-for-structuring-your-project-folder">Best practices for structuring your project folder</a></li>
   <li><a href="#building-robust-filepaths-with-the-here-package" id="toc-building-robust-filepaths-with-the-here-package" class="nav-link" data-scroll-target="#building-robust-filepaths-with-the-here-package">Building robust filepaths with the <code>here</code> package</a></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
   </ul></li>
@@ -270,7 +270,7 @@ gtag('config', 'G-7BMXZGJQQY', { 'anonymize_ip': true});
 <p><code>rm(list = ls())</code></p>
 <p><em>I will come into your office and SET YOUR COMPUTER ON FIRE</em> 🔥.</p>
 </blockquote>
-<p>While I won’t come and set your computer on fire (especially because I have committed both of these coding crimes in the past), I do want to give you access to two really useful tools used by many of us to make our lives much easier for managing research projects, and much nicer for sharing code with collaborators. These two tools are: <strong>R Studio projects</strong> and the <strong><code>here</code></strong> package.</p>
+<p>While I won’t come and set your computer on fire (especially because I have committed both of these coding crimes in the past), I do want to teach you about two really useful tools for making your life easier for managing research projects, and much nicer for sharing code with collaborators. These two tools are: <strong>R Studio projects</strong> and the <strong><code>here</code></strong> package.</p>
 </section>
 <section id="prerequisites" class="level1">
 <h1>Prerequisites</h1>
@@ -325,7 +325,7 @@ Learning objectives
 </figure>
 </div>
 <p>Lastly, we get to choose the directory name (this is the name the project folder will have, so make sure it identifies your project clearly) and where this directory will be saved (i.e where on your computer you want to keep your research project folders):</p>
-<p><em>Note: If you tick the box to open in a new session (red circle), whatever you’re currently working on in R Studio won’t have to be saved and closed.</em></p>
+<p><em>Note: If you tick the box to open in a new session (circled red), whatever you’re currently working on in R Studio won’t have to be saved and closed.</em></p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="create_new_project.png" class="img-fluid figure-img" width="500"></p>
@@ -339,9 +339,19 @@ Learning objectives
 <li>The root of your working directory now starts wherever the Project’s <code>.Rproj</code> file is — you can test this by running <code>getwd()</code> in a new script. While this filepath which would normally start at the top of your disk drive, it should now start right in the project folder). So no more writing — <code>C:\extremely\long\filepath\that\only\I\have</code> every time (<strong>BUT</strong> see next section on the <code>here</code> package for making this even better).</li>
 </ol>
 </section>
-<section id="best-practices-add-more-here" class="level2">
-<h2 class="anchored" data-anchor-id="best-practices-add-more-here">Best practices (add more here?)</h2>
+<section id="best-practices-for-structuring-your-project-folder" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices-for-structuring-your-project-folder">Best practices for structuring your project folder</h2>
 <p>Once a project is created, it’s worth adding folders to contain each of the relevant types of data for your research. For most of us this usually means something like the following: <code>raw_data</code>, <code>code</code>, <code>processed_data</code>, <code>figures</code> (folders should only contain data relevant to the research project).</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<p></p><figcaption class="figure-caption">Example what your folders might look like inside your Project folder (adapted from Martin Chan’s <a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/">beginners guide to using R Studio projects</a>)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="building-robust-filepaths-with-the-here-package" class="level2">
 <h2 class="anchored" data-anchor-id="building-robust-filepaths-with-the-here-package">Building robust filepaths with the <code>here</code> package</h2>
@@ -349,9 +359,11 @@ Learning objectives
 <p>In comes the <code>here</code> package to the rescue — we can use it to make reproducible filepaths that work for everyone! <code>here</code> works in a similar way to <code>file.path</code>, where we build a path to a file by listing the folders of the path as arguments. For example, if we had some data in a project sub folder of <code>raw_data</code> called <code>2023.csv</code>, we’d make a reproducible filepath to it by writing <code>here("raw_data, "2023.csv")</code>. <code>here</code> does some helpful stuff in the background by a) adding our project’s root directory (which you can see by just writing <code>here()</code> with no file names), and b) starts evaluating from the project up (which <code>file.path</code> doesn’t).</p>
 <p>When you want to actually use a filepath for say, reading some data with <code>read_csv</code>, you just have to provide this simple <code>here</code> code wherever you’d be writing a <code>Users/stephen's/long/winded/filepath/to/a/file</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>()</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"raw_data"</span>, <span class="st">"2019.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co">#load here if not already</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>() <span class="co">#this will magically show the project root directory on your machine</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">"raw_data"</span>, <span class="st">"2019.csv"</span>) <span class="co">#this builds a filepath for where you want to go</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"raw_data"</span>, <span class="st">"2019.csv"</span>)) <span class="co">#read the file in the filepath above with read_csv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="next-steps" class="level2">
@@ -374,6 +386,7 @@ Learning objectives
 <h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
 <p>We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.</p>
 <ul>
+<li>Martin Chan’s <a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/">beginners guide to using R Studio projects</a></li>
 <li>Jenny Bryan’s <a href="https://github.com/jennybc/here_here">‘Ode to the <code>here</code> package’</a></li>
 <li>Malcom Barret’s <a href="https://malco.io/2018/11/05/why-should-i-use-the-here-package-when-i-m-already-using-projects/">blog post</a> on using the <code>here</code> package alongside Projects</li>
 </ul>
