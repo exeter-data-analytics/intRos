@@ -686,5 +686,159 @@ P value adjustment: tukey method for comparing a family of 3 estimates </code></
   <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</guid>
   <pubDate>Tue, 14 Feb 2023 00:00:00 GMT</pubDate>
 </item>
+<item>
+  <title>intRos: Managing research projects with R Studio</title>
+  <dc:creator>Stephen Lang</dc:creator>
+  <link>https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="outline" class="level1">
+<h1>Outline</h1>
+<p>When we’re doing research, we often find ourselves working on more than one research project at time. Managing multiple folders of data and code can be confusing enough, but when we throw R into the mix, things can get messy very quickly. A large part of the confusion comes from how most folks manage research projects on their own system — which was been aptly summarised by the wonderful <a href="https://twitter.com/JennyBryan">Jenny Bryan</a>:</p>
+<blockquote class="blockquote">
+<p><em>If the first line of your R script is</em></p>
+<p><code>setwd("C:\Users\jenny\path\that\only\I\have")</code></p>
+<p><em>I will come into your office and SET YOUR COMPUTER ON FIRE</em> 🔥.</p>
+<p><em>If the first line of your R script is</em></p>
+<p><code>rm(list = ls())</code></p>
+<p><em>I will come into your office and SET YOUR COMPUTER ON FIRE</em> 🔥.</p>
+</blockquote>
+<p>While I won’t come and set your computer on fire (especially because I have committed both of these coding crimes in the past), I do want to teach you about two really useful tools for making your life easier for managing research projects, and much nicer for sharing code with collaborators. These two tools are: <strong>R Studio projects</strong> and the <strong><code>here</code></strong> package.</p>
+</section>
+<section id="prerequisites" class="level1">
+<h1>Prerequisites</h1>
+<ul>
+<li>Have <a href="https://posit.co/download/rstudio-desktop/">R and R Studio</a> installed</li>
+<li>Have the <code>tidyverse</code> and <code>here</code> packages installed</li>
+<li>Have a small research project that you’re ready to projectify, or some test code/data to make into a practice research project</li>
+</ul>
+</section>
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This introduction should allow you to:</strong></p>
+<ul>
+<li>Develop an understanding of how R Studio projects function.</li>
+<li>Develop an understanding of how <code>here</code> can create reproducible filepaths.</li>
+<li>Use both tools together to create research projects that are stable, shareable and easy to work with!</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="managing-research-projects-in-r-studio" class="level1">
+<h1>Managing research projects in R Studio</h1>
+<section id="whats-wrong-with-rmlist-ls-anyway" class="level3">
+<h3 class="anchored" data-anchor-id="whats-wrong-with-rmlist-ls-anyway">What’s wrong with <code>rm(list = ls())</code> anyway?</h3>
+<p><code>rm(list = ls())</code> is built to do one thing: wipe the slate clean by nuking your entire R environment. While this might seem like good practice each time you start coding, it actually makes life tricky if you are in the middle of analysing one dataset and want to quickly jump into another research project to do something else; clearing your environment every time means you have to start from scratch, and if you forget to run it before diving into new code, any common variables will be overwritten and madness is likely to follow.</p>
+</section>
+<section id="the-magic-of-rstudio-and-projects" class="level2">
+<h2 class="anchored" data-anchor-id="the-magic-of-rstudio-and-projects">The Magic of RStudio and Projects</h2>
+<p>R Studio is great, and if you don’t already use it I’d highly recommend starting now! R Studio is what we’d call a IDE (Integrated Development Environment) that allows us to integrate with R to do much <a href="https://posit.co/products/open-source/rstudio/">more than execute code</a>. Despite its wide use in the science community, there’s one bit of functionality that seems to regularly overlooked by many folks: “Projects”. These files — which you can start to explore from the drop-down menu in the top-right of R Studio — are designed for compartmentalising your work into separate contexts, which are great if you have multiple research projects on the go at once.</p>
+<p>RStudio projects resolve the issue of <code>rm(list = ls())</code> by creating a separate R Studio instance for each new project, each with its own R session, environment, temporary files and working directory (see next section on the ‘here’ package for more on filepaths).</p>
+<p>If we navigate to <code>New Project...</code> (either from <code>File</code> or the drop-down Projects toolbar in the top-right), we are given the option of creating a new R Studio project in one of three ways: - New directory (i.e.&nbsp;start from an empty folder) - Existing directory (when you already have a folder of code and data that you want to turn into a project) - Version control (when you want to start version control of a project — see Next steps section for more info on this)</p>
+<p>Most of the time you’ll be starting a new project in an empty folder, so we’ll use the <code>New Directory</code> option:</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/create_project.png" class="img-fluid figure-img" width="500"></p>
+</figure>
+</div>
+<p>Next you’re provided with a bunch of alternate project types, but we’ll go for the <code>New Project</code> option:</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/project_type.png" class="img-fluid figure-img" width="500"></p>
+</figure>
+</div>
+<p>Lastly, we get to choose the directory name (this is the name the project folder will have, so make sure it identifies your project clearly) and where this directory will be saved (i.e where on your computer you want to keep your research project folders):</p>
+<p><em>Note: If you tick the box to open in a new session (circled red), whatever you’re currently working on in R Studio won’t have to be saved and closed.</em></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/create_new_project.png" class="img-fluid figure-img" width="500"></p>
+</figure>
+</div>
+<p>And that’s it! You now have a nice folder ready to fill with data and code, and never need to use <code>rm(list = ls())</code> ever again. R Studio also did a couple of things for us in the background when we hit the <code>Create Project</code> button:</p>
+<ol type="1">
+<li>Created an <code>.Rproj</code> file in the top level of the folder (can be used to directly open each project in a new session, and also contains various options for project-specific settings)</li>
+<li>Created a hidden directory <code>.Rproj.user</code> where project-specific temporary files are stored (useful if you have a session terminate unexpectedly)</li>
+<li>Loaded the project into R Studio, with the project name displayed in the Projects toolbar (top-right) and also in front of the RStudio icon in the task bar (appearance differs between macOS and Windows).</li>
+<li>The root of your working directory now starts wherever the Project’s <code>.Rproj</code> file is — you can test this by running <code>getwd()</code> in a new script. While this filepath which would normally start at the top of your disk drive, it should now start right in the project folder). So no more writing — <code>C:\extremely\long\filepath\that\only\I\have</code> every time (<strong>BUT</strong> see next section on the <code>here</code> package for making this even better).</li>
+</ol>
+</section>
+<section id="best-practices-for-structuring-your-project-folder" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices-for-structuring-your-project-folder">Best practices for structuring your project folder</h2>
+<p>Once a project is created, it’s worth adding folders to contain each of the relevant types of data for your research. For most of us this usually means something like the following: <code>raw_data</code>, <code>code</code>, <code>processed_data</code>, <code>figures</code> (folders should only contain data relevant to the research project).</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<p></p><figcaption class="figure-caption">Example of what your sub-folders might look like inside your Project folder (adapted from Martin Chan’s <a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/">beginners guide to using R Studio projects</a>)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="building-robust-filepaths-with-the-here-package" class="level2">
+<h2 class="anchored" data-anchor-id="building-robust-filepaths-with-the-here-package">Building robust filepaths with the <code>here</code> package</h2>
+<p>R Studio projects go a long way to making shorter filepaths for our code, but we can make things even better and more reproducible by making use of the <code>here</code> package. <code>here</code> helps make filepaths consistent between different operating systems. For example, while macOS users have filepaths separated by forward slashes (<code>/</code>), windows users have filepaths with backward slashes (<code>\</code>). This means that even with the shorter filepaths we get when using Projects, custom filepaths like <code>raw_data/2023.csv</code> will only work for macOS users, and if you share this fragile code with someone using Windows your code will just throw them errors.</p>
+<p>In comes the <code>here</code> package to the rescue — we can use it to make reproducible filepaths that work for everyone! <code>here</code> works in a similar way to <code>file.path</code>, where we build a path to a file by listing the folders of the path as arguments. For example, if we had some data in a project sub folder of <code>raw_data</code> called <code>2023.csv</code>, we’d make a reproducible filepath to it by writing <code>here("raw_data, "2023.csv")</code>. <code>here</code> does some helpful stuff in the background by a) adding our project’s root directory (which you can see by just writing <code>here()</code> with no file names), and b) starts evaluating from the project up (which <code>file.path</code> doesn’t).</p>
+<p>When you want to actually use a filepath for say, reading some data with <code>read_csv</code>, you just have to provide this simple <code>here</code> code wherever you’d be writing a <code>Users/stephen's/long/winded/filepath/to/a/file</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;">library</span>(here) <span class="co" style="color: #5E5E5E;">#load here if not already</span></span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;">here</span>() <span class="co" style="color: #5E5E5E;">#this will magically show the project root directory on your machine</span></span>
+<span id="cb1-4"><span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"raw_data"</span>, <span class="st" style="color: #20794D;">"2019.csv"</span>) <span class="co" style="color: #5E5E5E;">#this builds a filepath for where you want to go</span></span>
+<span id="cb1-5"><span class="fu" style="color: #4758AB;">read_csv</span>(<span class="at" style="color: #657422;">file =</span> <span class="fu" style="color: #4758AB;">here</span>(<span class="st" style="color: #20794D;">"raw_data"</span>, <span class="st" style="color: #20794D;">"2019.csv"</span>)) <span class="co" style="color: #5E5E5E;">#read the file in the filepath above with read_csv</span></span></code></pre></div>
+</div>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>Using these two sets of tools together, you’re now primed to do some reproducible science on as many different projects as you want! But how can we go about sharing this work with others? While you can technically share the entire project folder with collaborators directly, we can also use version control software and online repositories to manage changes to our code and make it accessible to others. The main way folks do this is using git and GitHub, and we will do a later post on how to get set up with both in due course.</p>
+<p><a href="link to be updated"><strong>intRo to using git, GitHub &amp; R Studio (post coming soon)</strong></a></p>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>We’ve had a full intRoduction to getting started with R Studio Projects and <code>here</code>. The next step is to try it out for yourself on a new research project! Hopefully this knowledge will mean no more time spent crafting obnoxiously long filepaths for <code>setwd()</code> to reply with: <em><span style="color:red;">“Error: cannot change working directory”</span></em> 🤦</p>
+<section id="additional-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-resources">Additional Resources</h3>
+<ul>
+<li>Posit (previously known as RStudio) have a wealth of information on using the RStudio IDE, including <a href="https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects">this great how-to guide</a></li>
+<li><a href="https://github.com/krlmlr">Kirill Müller</a> (creator of the <code>here</code> package) has written a <a href="https://here.r-lib.org/">primer on getting started with it</a></li>
+</ul>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>We did not create this content alone! Inspiration, tips, and resources have been borrowed from multiple sources.</p>
+<ul>
+<li>Martin Chan’s <a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/">beginners guide to using R Studio projects</a></li>
+<li>Jenny Bryan’s <a href="https://github.com/jennybc/here_here">‘Ode to the <code>here</code> package’</a></li>
+<li>Malcom Barret’s <a href="https://malco.io/2018/11/05/why-should-i-use-the-here-package-when-i-m-already-using-projects/">blog post</a> on using the <code>here</code> package alongside Projects</li>
+</ul>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>RStudio projects</category>
+  <category>tidyverse</category>
+  <category>here</category>
+  <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/index.html</guid>
+  <pubDate>Tue, 03 Jan 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/create_project.png" medium="image" type="image/png" height="109" width="144"/>
+</item>
 </channel>
 </rss>

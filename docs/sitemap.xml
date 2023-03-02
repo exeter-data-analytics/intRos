@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/index.html</loc>
+    <lastmod>2023-03-02T18:17:41.446Z</lastmod>
+  </url>
+  <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</loc>
-    <lastmod>2023-02-26T07:55:58.071Z</lastmod>
+    <lastmod>2023-03-02T18:17:43.063Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_flextable/index.html</loc>
-    <lastmod>2023-02-26T07:55:59.238Z</lastmod>
+    <lastmod>2023-03-02T18:17:44.663Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/index.html</loc>
-    <lastmod>2023-02-26T07:55:59.555Z</lastmod>
+    <lastmod>2023-03-02T18:17:45.139Z</lastmod>
   </url>
   <url>
     <loc>https://exeter-data-analytics.github.io/intRos/posts.html</loc>
-    <lastmod>2023-02-26T07:55:59.867Z</lastmod>
-  </url>
-  <url>
-    <loc>https://exeter-data-analytics.github.io/intRos/posts/intro_to_projects/index.html</loc>
-    <lastmod>2023-03-02T16:32:37.759Z</lastmod>
+    <lastmod>2023-03-02T18:17:45.628Z</lastmod>
   </url>
 </urlset>
