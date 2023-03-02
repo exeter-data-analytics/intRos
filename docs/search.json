@@ -18,7 +18,7 @@
     "href": "posts/intro_to_projects/index.html#best-practices-for-structuring-project-folders",
     "title": "intRos: Managing research projects with R Studio",
     "section": "Best practices for structuring project folders",
-    "text": "Best practices for structuring project folders\nOnce a project is created, it’s worth adding folders to contain each of the relevant types of data for your research. For most of us this usually means something like the following: raw_data, code, outputs (folders should only contain data relevant to the research project).\n\n\n\n\n\nExample of what your sub-folders might look like inside your Project folder (adapted from Martin Chan’s beginners guide to using R Studio projects)"
+    "text": "Best practices for structuring project folders\nOnce a project is created, it’s worth adding folders to contain each of the relevant types of data for your research. For most of us this usually means something like the following: raw_data, code, outputs (folders should only contain data relevant to the research project).\n\n\n\n\n\nExample of what your sub-folders might look like inside your Project folder (adapted from Martin Chan’s beginner’s guide to using R Studio projects)"
   },
   {
     "objectID": "posts/intro_to_projects/index.html#building-robust-filepaths-with-the-here-package",

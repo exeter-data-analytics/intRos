@@ -96,7 +96,7 @@ Once a project is created, it's worth adding folders to contain each of the rele
 #| out-width: 65%
 #| echo: false
 #| fig-align: left
-#| fig-cap: Example of what your sub-folders might look like inside your Project folder (adapted from Martin Chan's [beginners guide to using R Studio projects](https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/))
+#| fig-cap: Example of what your sub-folders might look like inside your Project folder (adapted from Martin Chan's [beginner's guide to using R Studio projects](https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/))
 library(tidyverse)
 library(magick)
 
