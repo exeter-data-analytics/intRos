@@ -130,7 +130,7 @@
     "href": "index.html#get-started",
     "title": "Exeter Data Analytics intRos series",
     "section": "Get started",
-    "text": "Get started\nAll of the available intRos can be found in the walkthroughs tab. All of the reproducible quarto (.qmd) files can be found at the source GitHub repository for this website. You can navigate to each of the directories individually in the posts/ folder, or better still clone the repo using git clone and open the project in RStudio.\nA summary of available walkthroughs is below:\n\nReproducible tables with flextable\nMaking publication-ready plots with ggplot2"
+    "text": "Get started\nAll of the available intRos can be found in the walkthroughs tab. All of the reproducible quarto (.qmd) files can be found at the source GitHub repository for this website. You can navigate to each of the directories individually in the posts/ folder, or better still clone the repo using git clone and open the project in RStudio.\nA summary of available walkthroughs is below:\n\nReproducible tables with flextable\nMaking publication-ready plots with ggplot2\nManaging research projects with RStudio"
   },
   {
     "objectID": "index.html#contact-us",

@@ -26,6 +26,7 @@ A summary of available walkthroughs is below:
 
 - Reproducible tables with **flextable**
 - Making publication-ready plots with **ggplot2**
+- Managing research projects with **RStudio**
 
 
 ## Contact us
