@@ -25,6 +25,12 @@
 <p>I love making graphs! To explore data, to plot model results, just for the fun of making plots. I imagine we have all spent a huge amount of time making our plots ready for publication. Here we have a quick walkthrough of using <strong>ggplot2</strong> to create graphs for publication, and a few tips and tricks we have learned along the way. <em>If you have a favourite ggplot2 trick or tip then we would love for you to get in contact with us and for you add it to this walkthrough. Or if you’re feeling adventurous, clone the <a href="https://github.com/exeter-data-analytics/intRos">GitHub repo</a>, add in your tip, re-render this quarto post, commit and push the changes, and start a Pull Request!</em></p>
 <p><strong>ggplot2</strong> is a popular data visualisation package in R that allows users to create high-quality and customisable graphics for data exploration, scientific publications, and presentations. Developed by Hadley Wickham, <strong>ggplot2</strong> is built on the principles of the Grammar of Graphics, which defines a set of rules for constructing and interpreting visualisations. With <strong>ggplot2</strong>, users can easily create a wide range of plots with advanced features such as facets, themes, and labels. Whether you are at the beginning of your science journey, or an old and grumpy PI, <strong>ggplot2</strong> provides a powerful and flexible tool for visualising data and gaining insights from it.</p>
 <p>Making a <strong>ggplot2</strong> is like writing and following a recipe. You start with the first instructions (a call to <strong>ggplot()</strong>), the next instruction (like the next item of the recipe) is signalled using a <code>+</code>, a new line, and new instructions are added sequentially. <strong>ggplot2</strong> works in a sequential fashion, later instructions add to what is already there, and sometimes counteract or override what previous instructions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/Slide1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Making a plot using <strong>ggplot2</strong> works much like a recipe</figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="prerequisites" class="level1">
 <h1>Prerequisites</h1>
@@ -347,6 +353,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
   <category>tidyverse</category>
   <guid>https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/index.html</guid>
   <pubDate>Fri, 24 Feb 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://exeter-data-analytics.github.io/intRos/posts/intro_to_ggplot2/Slide1.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>intRos: Reproducible tables with flextable</title>

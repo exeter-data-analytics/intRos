@@ -20,6 +20,8 @@ I love making graphs! To explore data, to plot model results, just for the fun o
 
 Making a **ggplot2** is like writing and following a recipe. You start with the first instructions (a call to **ggplot()**), the next instruction (like the next item of the recipe) is signalled using a `+`, a new line, and new instructions are added sequentially. **ggplot2** works in a sequential fashion, later instructions add to what is already there, and sometimes counteract or override what previous instructions.
 
+![Making a plot using **ggplot2** works much like a recipe](/posts/intro_to_ggplot2/Slide1.png)
+
 # Prerequisites
 
 - Have R installed
